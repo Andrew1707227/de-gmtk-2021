@@ -1,1 +1,1 @@
-# de-gmtk-2021
+# GMTK Game Jam 2021
