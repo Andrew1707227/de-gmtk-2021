@@ -7,39 +7,16 @@ public class EnemyFuse : MonoBehaviour
 
     private void Update()
     {
-       // Physics2D.OverlapCircle(transform.position, .5f).transform.tag == "Enemy";
+        Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, .5f);
 
-
-
-        if (Physics2D.OverlapCircle(transform.position, .5f))
-        { 
-            
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("hi");
-
-        //Check if enemy
-        if (collision.transform.tag == "Enemy")
+        for (int i = 0; i < collisions.Length; i++)
         {
-            //Destroy collision and itself
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
-        }
-    }
-
-    private void OncolliderEnter(Collider2D collision)
-    {
-        Debug.Log("hi");
-
-        //Check if enemy
-        if (collision.transform.tag == "Enemy")
-        {
-            //Destroy collision and itself
-            Destroy(collision);
-            Destroy(gameObject);
+            if (collisions[i].gameObject != gameObject && collisions[i].transform.tag == "Enemy")
+            {
+                //Destroy collision and itself
+                Destroy(collisions[i].gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 }

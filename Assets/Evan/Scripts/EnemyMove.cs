@@ -9,14 +9,15 @@ public class EnemyMove : MonoBehaviour
     [HideInInspector]
     public bool pulled = false; //Holds if being pulled
 
-    public LayerMask stoppers;
+    public LayerMask stoppers; //Layermask for hitting walls
+    public bool horizFlip = false; //Holds which horizontal flip is wanted
 
     Transform movePoint; //Holds point to move to
     GameObject player; //Holds player
     Vector3[] direction = { new Vector3(0, 1, 0), new Vector3(0, -1, 0), new Vector3(1, 0, 0), new Vector3(-1, 0, 0)}; //Holds directions
 
-    Coroutine coroutine;
-    bool first = true;
+    Coroutine coroutine; //Holds coroutine
+    bool first = true; //Holds if restarted
 
     Sprite down; //Holds moving down sprite
     public Sprite up; //Holds moving up sprite
@@ -187,6 +188,11 @@ public class EnemyMove : MonoBehaviour
                 else
                 {
                     sr.flipX = false;
+                }
+
+                if (horizFlip)
+                {
+                    sr.flipX = !sr.flipX;
                 }
             }
         }
