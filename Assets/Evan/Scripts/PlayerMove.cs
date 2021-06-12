@@ -5,14 +5,26 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
 
-    public float moveSpeed;
-    public Transform movePoint;
-    public LayerMask stoppers;
+    public float moveSpeed; //holds move speed
+    public Transform movePoint; //Holds point to move to
+    public LayerMask stoppers; //Holds wall layer
+
+    Sprite down; //Holds moving down sprite
+    public Sprite up; //Holds moving up sprite
+    public Sprite horiz; //Holds moving horiz. sprite
+
+    SpriteRenderer sr;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Seperates movepoint
         movePoint.parent = null;
+
+        sr = gameObject.GetComponent<SpriteRenderer>();
+
+        //Gets down sprite
+        down = sr.sprite;
     }
 
     // Update is called once per frame
@@ -28,33 +40,55 @@ public class PlayerMove : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W))
             {
                 //Start move
-                move(0, 1);
+                move(0, 1, up);
             }
             else if (Input.GetKeyDown(KeyCode.S))
             {
                 //Start move
-                move(0, -1);
+                move(0, -1, down);
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
                 //Start move
-                move(-1, 0);
+                move(-1, 0, horiz);
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
                 //Start move
-                move(1, 0);
+                move(1, 0, horiz);
             }
         }
     }
 
-    private void move(float movementX, float movementY)
+    private void move(float movementX, float movementY, Sprite s)
     {
         //Check stopper for colliders
         if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(movementX, movementY, 0f), .2f, stoppers))
         {
             //Move movepoint
             movePoint.position += new Vector3(movementX, movementY, 0f);
+
+            //Check if x or y
+            if (Mathf.Abs(movementY) > 0)
+            {
+                //Swap sprite
+                sr.sprite = s;
+            }
+            else
+            {
+                //Swap sprite
+                sr.sprite = s;
+
+                //Check which x
+                if (movementX == 1)
+                {
+                    sr.flipX = false;
+                }
+                else
+                {
+                    sr.flipX = true;
+                }
+            }
         }
     }
 }
