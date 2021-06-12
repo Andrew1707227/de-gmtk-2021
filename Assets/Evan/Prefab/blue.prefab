@@ -133,6 +133,7 @@ MonoBehaviour:
   stoppers:
     serializedVersion: 2
     m_Bits: 256
+  horizFlip: 0
   up: {fileID: 21300000, guid: 93e1df6e39d932b408cbb31b7a797157, type: 3}
   horiz: {fileID: 21300000, guid: e76f30eb1cc0676428bf9f28e6e8dd8e, type: 3}
 --- !u!114 &8737852022872231370
@@ -160,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc81c6601a6a6394bb09e161ca8ef059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBlue: 1
 --- !u!61 &5418044984412221683
 BoxCollider2D:
   m_ObjectHideFlags: 0
