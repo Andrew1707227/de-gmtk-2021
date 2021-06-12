@@ -80,7 +80,9 @@ public class EnemyMove : MonoBehaviour
             }
 
             //Makes sure enemy has caught up to movepoint before moving
-            if (Vector3.Distance(transform.position, movePoint.position) == 0)
+            //And the they havent reached the player
+            if (Vector3.Distance(transform.position, movePoint.position) == 0 &&
+                transform.position != player.transform.position)
             {
                 //Wait between jumps
                 if (!pulled)
