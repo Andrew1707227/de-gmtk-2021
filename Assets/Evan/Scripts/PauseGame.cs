@@ -100,6 +100,7 @@ public class PauseGame : MonoBehaviour
     public void LoadMenu()
     {
         Time.timeScale = 1;
+        AudioListener.pause = false;
         SceneManager.LoadScene(0);
     }
 

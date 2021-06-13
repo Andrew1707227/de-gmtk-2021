@@ -9,16 +9,21 @@ public class Score : MonoBehaviour {
     public static Sprite currSprite;
 
     public static int numScore;
+    public static bool isUpdating;
     private Text scoreText;
 
     void Start() {
+        isUpdating = true;
         scoreText = GetComponent<Text>();
+        numScore = 0;
         currSprite = image.sprite;
     }
 
     void Update() {
-        image.sprite = currSprite;
-        scoreText.text = "Score: " + numScore + "pts";
+        if (isUpdating) {
+            image.sprite = currSprite;
+            scoreText.text = "Score: " + numScore + "pts";
+        }
     }
 
 }

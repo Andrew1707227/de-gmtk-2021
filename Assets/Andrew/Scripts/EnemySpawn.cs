@@ -7,19 +7,13 @@ public class EnemySpawn : MonoBehaviour {
     public GameObject blue;
     public GameObject red;
 
-    public int framesPerFire;
+    public float fireRate;
 
     public Vector2 min;
     public Vector2 max;
 
     void Start() {
-
-    }
-
-    void FixedUpdate() {
-        if (Time.frameCount % framesPerFire == 0) {
-            StartCoroutine(SpawnEnemies());
-        }
+        StartCoroutine(SpawnEnemies());
     }
 
     public IEnumerator SpawnEnemies() {
@@ -34,6 +28,7 @@ public class EnemySpawn : MonoBehaviour {
         }
         Instantiate(blue, bluePos, Quaternion.identity);
         Instantiate(red, redPos, Quaternion.identity);
-        yield return null;
+        yield return new WaitForSeconds(fireRate);
+        StartCoroutine(SpawnEnemies());
     }
 }
