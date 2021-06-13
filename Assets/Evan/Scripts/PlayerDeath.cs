@@ -68,7 +68,7 @@ public class PlayerDeath : MonoBehaviour
     }
 
     public IEnumerator Death() {
-        //GetComponent<SpriteRenderer>().enabled = false;
+        GameObject.Find("PullLoopSFX").GetComponent<AudioSource>().loop = false;
         
         if (volume.profile.TryGet(out DepthOfField dof)) {
             dof.active = true;
