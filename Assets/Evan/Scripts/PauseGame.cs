@@ -25,6 +25,8 @@ public class PauseGame : MonoBehaviour
 
     private void Start()
     {
+        gameIsPaused = false;
+
         bI = buttonHolder.GetComponent<Image>();
 
         for (int i = 0; i < 3; i++)
@@ -42,7 +44,6 @@ public class PauseGame : MonoBehaviour
             //if the game is paused
             if (gameIsPaused)
             {
-                Debug.Log("hi");
                 //Calls Resume method
                 Resume();
             }
@@ -57,8 +58,6 @@ public class PauseGame : MonoBehaviour
     //Resumes game
     public void Resume()
     {
-        if (Time.timeScale == 0f)
-        {
             //Start sound up again
             AudioListener.pause = false;
 
@@ -76,14 +75,11 @@ public class PauseGame : MonoBehaviour
 
             //Sets gameIsPaused to false
             gameIsPaused = false;
-        }
     }
 
     //Pauses game
     void Pause()
     {
-        if (Time.timeScale == 1f)
-        {
             //Pause sound
             AudioListener.pause = true;
 
@@ -93,7 +89,6 @@ public class PauseGame : MonoBehaviour
 
             //Sets gameIsPaused to true
             gameIsPaused = true;
-        }
     }
 
     //Go to menu
