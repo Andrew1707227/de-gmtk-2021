@@ -5,6 +5,18 @@ using UnityEngine;
 public class EnemyFuse : MonoBehaviour
 {
     public bool isBlue;
+    public GameObject magenta;
+
+    bool first = true;
+
+    public Animator a;
+    EnemyMove em;
+
+    private void Start()
+    {
+        em = gameObject.GetComponent<EnemyMove>();
+    }
+
     private void Update()
     {
         Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, .5f);
@@ -15,8 +27,16 @@ public class EnemyFuse : MonoBehaviour
             {
                 Score.numScore += 10;
                 //Destroy collision and itself
-                Destroy(collisions[i].gameObject);
-                Destroy(gameObject);
+                a.SetTrigger("Dead");
+                if (isBlue && first)
+                {                  
+                    first = false;
+                    Vector3 wantedPoint = transform.position + ((collisions[i].transform.position - transform.position) / 2);
+                    GameObject magentaEffect = Instantiate(magenta, wantedPoint, Quaternion.identity);
+                    Destroy(magentaEffect, 0.84f);
+                }
+                Destroy(collisions[i].gameObject, 0.3f);
+                Destroy(gameObject, 0.3f);
             }
         }
     }

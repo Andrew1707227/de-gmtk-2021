@@ -15,6 +15,17 @@ public class PlayerDeath : MonoBehaviour
     public static int highScore;
     public Volume volume;
 
+    Animator a;
+    MagnetPull mp;
+    PlayerMove pm;
+
+    private void Start()
+    {
+        a = gameObject.GetComponent<Animator>();
+        mp = gameObject.GetComponent<MagnetPull>();
+        pm = gameObject.GetComponent<PlayerMove>();
+    }
+
     // Update is called once per frame
     void Update() {
         Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, .5f);
@@ -25,15 +36,26 @@ public class PlayerDeath : MonoBehaviour
                 (collisions[i].transform.tag == "Death" || collisions[i].transform.tag == "Enemy") &&
                 !debounce)
             {
-                //Destroy itself
                 debounce = true;
                 StartCoroutine(Death());
+
+                pm.enabled = false;
+                mp.enabled = false;
+
+                if (collisions[i].transform.tag == "Death")
+                {
+                    a.SetTrigger("PitDead");
+                }
+                else
+                {
+                    a.SetTrigger("EnemyDead");
+                }
             }
         }
     }
 
     public IEnumerator Death() {
-        GetComponent<SpriteRenderer>().enabled = false;
+        //GetComponent<SpriteRenderer>().enabled = false;
         
         if (volume.profile.TryGet(out DepthOfField dof)) {
             dof.active = true;

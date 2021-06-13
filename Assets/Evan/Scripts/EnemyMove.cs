@@ -23,7 +23,7 @@ public class EnemyMove : MonoBehaviour
     public Sprite up; //Holds moving up sprite
     public Sprite horiz; //Holds moving horiz. sprite
 
-    SpriteRenderer sr;
+    public SpriteRenderer sr;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +35,7 @@ public class EnemyMove : MonoBehaviour
         movePoint = transform.GetChild(0);
         movePoint.parent = null;
 
-        sr = gameObject.GetComponent<SpriteRenderer>();
+        //sr = gameObject.GetComponent<SpriteRenderer>();
 
         //Gets down sprite
         down = sr.sprite;

@@ -21,6 +21,8 @@ public class MagnetPull : MonoBehaviour
     public Color redColor;
     public Volume volume;
 
+    public ParticleSystem[] particleSystems = new ParticleSystem[4];
+
     private bool debounce;
 
     // Start is called before the first frame update
@@ -29,6 +31,8 @@ public class MagnetPull : MonoBehaviour
         //Resets staic varibles
         pullingN = false;
         pullingS = false;
+
+        particleSystems[0].Play();
     }
 
     // Update is called once per frame
@@ -50,6 +54,16 @@ public class MagnetPull : MonoBehaviour
             }
             pullingN = true;
             pullingS = false;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (!particleSystems[i].isPlaying)
+                {
+                   particleSystems[i].Play();
+                }
+                var main = particleSystems[i].main;
+                main.startColor = new Color(0.6705883f, 0.3960785f, 0.3960785f, 1);
+            }
         }
         else if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse1))
         {
@@ -66,6 +80,16 @@ public class MagnetPull : MonoBehaviour
             }
             pullingN = false;
             pullingS = true;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (!particleSystems[i].isPlaying)
+                {
+                    particleSystems[i].Play();
+                }
+                var main = particleSystems[i].main;
+                main.startColor = new Color(0.3960785f, 0.5490196f, 0.6705883f, 1);
+            }
         }
         else //Resets if off
         {
@@ -74,7 +98,12 @@ public class MagnetPull : MonoBehaviour
             StartCoroutine(MagnetPostProcessing(new Color(1, 0, 1), false));
             pullingN = false;
             pullingS = false;
-        }             
+
+            for (int i = 0; i < 4; i++)
+            {
+                particleSystems[i].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            }
+        }
     }
 
     public IEnumerator MagnetPostProcessing(Color color, bool on = true) {
