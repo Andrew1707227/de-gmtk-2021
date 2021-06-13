@@ -13,7 +13,10 @@ public class PlayerMove : MonoBehaviour
     public Sprite up; //Holds moving up sprite
     public Sprite horiz; //Holds moving horiz. sprite
 
+    public AudioClip moveSo;
+
     SpriteRenderer sr;
+    AudioSource aSource;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,7 @@ public class PlayerMove : MonoBehaviour
         movePoint.parent = null;
 
         sr = gameObject.GetComponent<SpriteRenderer>();
+        aSource = gameObject.GetComponent<AudioSource>();
 
         //Gets down sprite
         down = sr.sprite;
@@ -67,6 +71,10 @@ public class PlayerMove : MonoBehaviour
         {
             //Move movepoint
             movePoint.position += new Vector3(movementX, movementY, 0f);
+
+            aSource.pitch = Random.Range(0.8f, 1.2f);
+            aSource.clip = moveSo;
+            aSource.Play();
 
             //Check if x or y
             if (Mathf.Abs(movementY) > 0)

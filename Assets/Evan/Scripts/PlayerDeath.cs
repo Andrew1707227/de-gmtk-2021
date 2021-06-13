@@ -11,19 +11,25 @@ public class PlayerDeath : MonoBehaviour
     private bool debounce;
     public Image HScoreImage;
     public GameObject playAgain;
+    public GameObject quit;
     public Text HScoreText;
     public static int highScore;
     public Volume volume;
 
+    public AudioClip pitDeath;
+    public AudioClip enemyDeath;
+
     Animator a;
     MagnetPull mp;
     PlayerMove pm;
+    AudioSource aSource;
 
     private void Start()
     {
         a = gameObject.GetComponent<Animator>();
         mp = gameObject.GetComponent<MagnetPull>();
         pm = gameObject.GetComponent<PlayerMove>();
+        aSource = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -45,10 +51,17 @@ public class PlayerDeath : MonoBehaviour
                 if (collisions[i].transform.tag == "Death")
                 {
                     a.SetTrigger("PitDead");
+                    aSource.pitch = 1;
+                    aSource.clip = pitDeath;
+                    aSource.Play();
+
                 }
                 else
                 {
                     a.SetTrigger("EnemyDead");
+                    aSource.pitch = 1;
+                    aSource.clip = enemyDeath;
+                    aSource.Play();
                 }
             }
         }
@@ -79,6 +92,7 @@ public class PlayerDeath : MonoBehaviour
         }
         HScoreText.text = highScore + "pts";
         playAgain.SetActive(true);
+        quit.SetActive(true);
         yield return null;
     }
 

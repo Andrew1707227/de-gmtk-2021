@@ -25,15 +25,16 @@ public class EnemyFuse : MonoBehaviour
         {
             if (collisions[i].gameObject != gameObject && collisions[i].transform.tag == "Enemy" && (isBlue ^ collisions[i].GetComponent<EnemyFuse>().isBlue))
             {
-                Score.numScore += 10;
                 //Destroy collision and itself
                 a.SetTrigger("Dead");
                 if (isBlue && first)
                 {                  
                     first = false;
+
+                    Score.numScore += 10;
                     Vector3 wantedPoint = transform.position + ((collisions[i].transform.position - transform.position) / 2);
                     GameObject magentaEffect = Instantiate(magenta, wantedPoint, Quaternion.identity);
-                    Destroy(magentaEffect, 0.84f);
+                    Destroy(magentaEffect, 1.5f);
                 }
                 Destroy(collisions[i].gameObject, 0.3f);
                 Destroy(gameObject, 0.3f);

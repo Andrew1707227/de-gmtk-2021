@@ -19,16 +19,20 @@ public class EnemySpawn : MonoBehaviour {
     public IEnumerator SpawnEnemies() {
         Vector3 playerPos = GameObject.Find("Player").transform.position;
         Vector3 bluePos = playerPos;
-        while (Vector3.Distance(playerPos,bluePos) < 2) {
+        while (Vector3.Distance(playerPos,bluePos) < 3) {
             bluePos = new Vector3Int((int)Random.Range(min.x, max.x), (int)Random.Range(min.y, max.y), 0);
         }
         Vector3 redPos = playerPos;
-        while (Vector3.Distance(playerPos, redPos) < 2) {
+        while (Vector3.Distance(playerPos, redPos) < 3) {
             redPos = new Vector3Int((int)Random.Range(min.x, max.x), (int)Random.Range(min.y, max.y), 0);
         }
         Instantiate(blue, bluePos, Quaternion.identity);
         Instantiate(red, redPos, Quaternion.identity);
         yield return new WaitForSeconds(fireRate);
+        if (fireRate > 5)
+        {
+            fireRate -= 0.25f;
+        }
         StartCoroutine(SpawnEnemies());
     }
 }

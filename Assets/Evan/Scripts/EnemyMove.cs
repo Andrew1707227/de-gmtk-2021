@@ -23,7 +23,10 @@ public class EnemyMove : MonoBehaviour
     public Sprite up; //Holds moving up sprite
     public Sprite horiz; //Holds moving horiz. sprite
 
+    public AudioClip moveS;
+
     public SpriteRenderer sr;
+    AudioSource aSource;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +39,7 @@ public class EnemyMove : MonoBehaviour
         movePoint.parent = null;
 
         //sr = gameObject.GetComponent<SpriteRenderer>();
+        aSource = gameObject.GetComponent<AudioSource>();
 
         //Gets down sprite
         down = sr.sprite;
@@ -148,8 +152,11 @@ public class EnemyMove : MonoBehaviour
                     }
                 }
 
-                //Starts move with best direction
-                move(direction[best]);
+                if (best != -1)
+                {
+                    //Starts move with best direction
+                    move(direction[best]);
+                }
             }
 
             //Wait
@@ -165,6 +172,13 @@ public class EnemyMove : MonoBehaviour
         {
             //Move movepoint
             movePoint.position += movement;
+
+            if (!pulled)
+            {
+                aSource.pitch = Random.Range(0.8f, 1.2f);
+                aSource.clip = moveS;
+                aSource.Play();
+            }
 
             //Check if x, up, or down
             if (movement.y > 0)
