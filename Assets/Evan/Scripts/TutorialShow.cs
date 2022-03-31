@@ -23,7 +23,7 @@ public class TutorialShow : MonoBehaviour
 
     private void Update()
     {
-        if (Input.anyKey)
+        if (InputV2.anyKey)
         {
             shown = true;
             tutorial.SetActive(false);

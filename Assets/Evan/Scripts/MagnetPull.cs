@@ -39,57 +39,13 @@ public class MagnetPull : MonoBehaviour
     void Update()
     {
         //checks for Nough or South pull keys
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Mouse0))
+        if (InputV2.magnetNeg)
         {
-            //Toggle pulls
-            Score.currSprite = redBGround;
-            if (!(Asource.volume == 1)) {
-                Asource.pitch = .9f;
-                Asource.time = 0;
-                Asource.volume = 1;
-            }
-            if (!debounce) {
-                debounce = true;
-                StartCoroutine(MagnetPostProcessing(redColor));
-            }
-            pullingN = true;
-            pullingS = false;
-
-            for (int i = 0; i < 4; i++)
-            {
-                if (!particleSystems[i].isPlaying)
-                {
-                   particleSystems[i].Play();
-                }
-                var main = particleSystems[i].main;
-                main.startColor = new Color(0.6705883f, 0.3960785f, 0.3960785f, 1);
-            }
+            Negative();
         }
-        else if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse1))
+        else if (InputV2.magnetPos)
         {
-            //Toggle pulls
-            Score.currSprite = blueBGround;
-            if (!(Asource.volume == 1)) {
-                Asource.pitch = 1f;
-                Asource.time = 0;
-                Asource.volume = 1;
-            }
-            if (!debounce) {
-                debounce = true;
-                StartCoroutine(MagnetPostProcessing(blueColor));
-            }
-            pullingN = false;
-            pullingS = true;
-
-            for (int i = 0; i < 4; i++)
-            {
-                if (!particleSystems[i].isPlaying)
-                {
-                    particleSystems[i].Play();
-                }
-                var main = particleSystems[i].main;
-                main.startColor = new Color(0.3960785f, 0.5490196f, 0.6705883f, 1);
-            }
+            Positive();
         }
         else //Resets if off
         {
@@ -103,6 +59,54 @@ public class MagnetPull : MonoBehaviour
             {
                 particleSystems[i].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             }
+        }
+    }
+
+    public void Negative() {
+        //Toggle pulls
+        Score.currSprite = redBGround;
+        if (!(Asource.volume == 1)) {
+            Asource.pitch = .9f;
+            Asource.time = 0;
+            Asource.volume = 1;
+        }
+        if (!debounce) {
+            debounce = true;
+            StartCoroutine(MagnetPostProcessing(redColor));
+        }
+        pullingN = true;
+        pullingS = false;
+
+        for (int i = 0; i < 4; i++) {
+            if (!particleSystems[i].isPlaying) {
+                particleSystems[i].Play();
+            }
+            var main = particleSystems[i].main;
+            main.startColor = new Color(0.6705883f, 0.3960785f, 0.3960785f, 1);
+        }
+    }
+
+    public void Positive() {
+        //Toggle pulls
+        Score.currSprite = blueBGround;
+        if (!(Asource.volume == 1)) {
+            Asource.pitch = 1f;
+            Asource.time = 0;
+            Asource.volume = 1;
+        }
+        if (!debounce) {
+            debounce = true;
+            StartCoroutine(MagnetPostProcessing(blueColor));
+        }
+        pullingN = false;
+        pullingS = true;
+
+        for (int i = 0; i < 4; i++) {
+            if (!particleSystems[i].isPlaying) {
+                particleSystems[i].Play();
+            }
+            var main = particleSystems[i].main;
+            main.startColor = new Color(0.3960785f, 0.5490196f, 0.6705883f, 1);
         }
     }
 

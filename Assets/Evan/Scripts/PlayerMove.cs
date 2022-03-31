@@ -41,22 +41,22 @@ public class PlayerMove : MonoBehaviour
         if (Vector3.Distance(transform.position, movePoint.position) <= .1f)
         {
             //Key checks
-            if (Input.GetKeyDown(KeyCode.W))
+            if (InputV2.moveUp)
             {
                 //Start move
                 move(0, 1, up);
             }
-            else if (Input.GetKeyDown(KeyCode.S))
+            else if (InputV2.moveDown)
             {
                 //Start move
                 move(0, -1, down);
             }
-            else if (Input.GetKeyDown(KeyCode.A))
+            else if (InputV2.moveLeft)
             {
                 //Start move
                 move(-1, 0, horiz);
             }
-            else if (Input.GetKeyDown(KeyCode.D))
+            else if (InputV2.moveRight)
             {
                 //Start move
                 move(1, 0, horiz);

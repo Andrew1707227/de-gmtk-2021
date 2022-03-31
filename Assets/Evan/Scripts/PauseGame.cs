@@ -39,7 +39,7 @@ public class PauseGame : MonoBehaviour
     void Update()
     {
         //Checks for Cancel input
-        if (Input.GetButtonDown("Cancel"))
+        if (InputV2.pause)
         {
             //if the game is paused
             if (gameIsPaused)
@@ -50,6 +50,7 @@ public class PauseGame : MonoBehaviour
             else
             {
                 //Calls Pause method
+                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(buttons[0]);
                 Pause();
             }
         }

@@ -94,6 +94,7 @@ public class PlayerDeath : MonoBehaviour
         playAgain.SetActive(true);
         quit.SetActive(true);
         yield return null;
+        UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(playAgain);
     }
 
     public void PlayAgain() {

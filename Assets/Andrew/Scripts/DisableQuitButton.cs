@@ -5,7 +5,7 @@ using UnityEngine;
 public class DisableQuitButton : MonoBehaviour {
 
     void Start() {
-        if (Application.platform == RuntimePlatform.WebGLPlayer) {
+        if (Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.Android) {
             gameObject.SetActive(false);
         }
     }
