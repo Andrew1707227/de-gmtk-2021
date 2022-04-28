@@ -30,6 +30,7 @@ public class PlayerDeath : MonoBehaviour
         mp = gameObject.GetComponent<MagnetPull>();
         pm = gameObject.GetComponent<PlayerMove>();
         aSource = gameObject.GetComponent<AudioSource>();
+        highScore = PlayerPrefs.GetInt("High Score");
     }
 
     // Update is called once per frame
@@ -89,11 +90,13 @@ public class PlayerDeath : MonoBehaviour
         HScoreImage.color = temp;
         if (Score.numScore > highScore) {
             highScore = Score.numScore;
+            PlayerPrefs.SetInt("High Score", highScore);
         }
         HScoreText.text = highScore + "pts";
         playAgain.SetActive(true);
         quit.SetActive(true);
         yield return null;
+        PlayerPrefs.Save();
         UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(playAgain);
     }
 
