@@ -5,17 +5,18 @@ using UnityEngine;
 public class TutorialShow : MonoBehaviour
 {
 
-    public static bool shown = false;
+    public static bool shown;
 
     public GameObject tutorial;
     public float waitTime = 5;
 
     private void Awake()
     {
+        shown = bool.Parse(PlayerPrefs.GetString("Tutorial", "false"));
         if (!shown)
         {
             tutorial.SetActive(true);
-
+            PlayerPrefs.SetString("Tutorial", "true");
             StartCoroutine(wait());
         }
 
